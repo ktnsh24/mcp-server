@@ -16,12 +16,12 @@
 
 ## 🫏 The Donkey Analogy — Understanding Phase 2 MCP Operations
 
-In Phase 2, the donkey station becomes multi-channel:
-
-- Claude Desktop is a direct stable door (`stdio`).
-- SSE is a live progress bell from the station.
-- Provider switching changes storage barns without changing tool contracts.
-- Docker packages the whole station for reproducible deployment.
+| Metric | 🫏 Donkey Analogy | What It Means for MCP | How It's Calculated |
+|--------|-------------------|------------------------|---------------------|
+| **Stdio Transport** | Direct stable door — walk right in | Claude Desktop connects to tools via process stdin/stdout | Spawn server process → send JSON-RPC on stdin → read response from stdout |
+| **SSE Streaming** | Live progress bell from the station | Real-time event stream for long-running tool executions | `GET /sse` → verify `text/event-stream` content type → count events |
+| **Provider Switching** | Changes storage barns without changing tool contracts | Swap backend (InMemory ↔ PostgreSQL) without altering tool API | Change `STORAGE_PROVIDER` env → re-run same tool calls → verify identical results |
+| **Docker Deployment** | Packages the whole station for reproducible deployment | Containerised MCP server with all dependencies included | `docker compose up` → build image → verify `/health` + tool availability |
 
 ---
 
