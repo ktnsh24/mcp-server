@@ -1,0 +1,48 @@
+{
+  "name": "mcp-server",
+  "version": "0.1.0",
+  "description": "Custom MCP server exposing database, API, and portfolio tools to AI clients",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:stdio": "node dist/index.js --transport stdio",
+    "start:sse": "node dist/index.js --transport sse --port 8300",
+    "dev": "tsx watch src/index.ts",
+    "dev:stdio": "tsx src/index.ts --transport stdio",
+    "dev:sse": "tsx src/index.ts --transport sse --port 8300",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix",
+    "format": "prettier --write src/ tests/",
+    "format:check": "prettier --check src/ tests/",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "pg": "^8.12.0",
+    "zod": "^3.23.0",
+    "express": "^4.19.0",
+    "dotenv": "^16.4.0",
+    "winston": "^3.13.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.0",
+    "@types/pg": "^8.11.0",
+    "@types/uuid": "^9.0.0",
+    "eslint": "^9.5.0",
+    "prettier": "^3.3.0",
+    "tsx": "^4.15.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0",
+    "@vitest/coverage-v8": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

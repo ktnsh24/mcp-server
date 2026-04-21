@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.js.map
+coverage/
+.nyc_output/
+*.tsbuildinfo
+.DS_Store
