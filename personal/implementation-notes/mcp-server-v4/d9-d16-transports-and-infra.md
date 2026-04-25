@@ -1,6 +1,7 @@
 # Implementation Notes — D9-D16: Transports, Infrastructure & Operations
 
 > **Scope:** MCP server, SSE transport, Docker, Terraform, CI/CD
+>
 > **Key files:** `src/server/mcp.ts`, `src/server/sse.ts`, Dockerfile, infra/
 
 ---

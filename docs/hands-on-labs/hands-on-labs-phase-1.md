@@ -1,6 +1,7 @@
 # Hands-on Labs — Phase 1: MCP Fundamentals
 
 > **Labs 1-4:** Build and test the MCP server
+>
 > **Time:** ~2 hours total
 
 ---

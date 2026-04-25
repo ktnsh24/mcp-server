@@ -1,6 +1,7 @@
 # Implementation Notes — Analysis Phase: MCP Server
 
 > **Jira stories:** [jira-stories-mcp-server.md → Phase 0](../../jira-stories/jira-stories-mcp-server.md)
+>
 > **Purpose:** This document captures **why each design decision was made** for the MCP server project.
 
 ---

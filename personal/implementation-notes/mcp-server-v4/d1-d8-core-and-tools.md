@@ -1,6 +1,7 @@
 # Implementation Notes — D1-D8: MCP Core & Tools
 
 > **Scope:** Configuration, logging, tool registry, database providers
+>
 > **Key files:** `src/config.ts`, `src/logger.ts`, `src/tools/registry.ts`, `src/database/provider.ts`
 
 ---

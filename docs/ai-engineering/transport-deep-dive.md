@@ -1,7 +1,9 @@
 # Transport Deep Dive — stdio vs SSE
 
 > **What:** The MCP server supports two transport modes — stdio for local IDE integration and SSE for network-accessible HTTP clients.
+>
 > **Why:** Different deployment scenarios need different transports. Claude Desktop uses stdio; remote agents use SSE.
+>
 > **Files:** `src/server/mcp.ts` (stdio), `src/server/sse.ts` (SSE), `src/index.ts` (transport selection)
 
 **Related:** [MCP Protocol Deep Dive](mcp-protocol-deep-dive.md) · [Architecture](../architecture-and-design/architecture.md)

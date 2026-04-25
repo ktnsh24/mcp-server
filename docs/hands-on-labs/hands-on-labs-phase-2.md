@@ -1,6 +1,7 @@
 # Hands-on Labs — Phase 2: Advanced MCP Features
 
 > **Labs 5-8:** Claude Desktop integration, SSE streaming, provider switching, Docker
+>
 > **Time:** ~2.5 hours total
 
 ---
