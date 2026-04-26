@@ -4,7 +4,7 @@
 >
 > **How to run:** Each lab changes ONE config in `.env` (or one bit of server code), runs the same 3 protocol calls, records the metrics, and explains the trade-off.
 >
-> **🫏 Donkey lens:** Each lab ends with a donkey takeaway summarising the trade-off in plain language.
+> **Courier lens:** Each lab ends with a courier takeaway summarising the trade-off in plain language.
 
 ## Table of Contents
 - [Setup — Common to all labs](#setup--common-to-all-labs)
@@ -52,12 +52,12 @@
 ### What we learned
 Strict schemas are MCP best practice — clients (especially LLM agents) misspell keys constantly and silent acceptance turns into silent data bugs. Pay the upfront friction.
 
-### 🫏 Donkey takeaway
-A strict tool manifest tells the donkey "no, that's not on the wagon" the moment it grabs the wrong tool; a lax manifest lets it hammer with a screwdriver.
+### 🚚 Courier takeaway
+A strict tool manifest tells the courier "no, that's not in the kit" the moment they reach for the wrong tool; a lax manifest lets them hammer with a screwdriver.
 
 ---
 
-## Lab 2: Error-Handling Mode — "How does the stable react when a delivery fails?"
+## Lab 2: Error-Handling Mode — "How does the dispatch centre react when a delivery fails?"
 
 **Config:** `MCP_ERROR_MODE` (default: `structured`; values: `structured` / `verbose` / `silent`)
 **What it controls:** Whether tool errors return structured JSON-RPC errors with codes, raw stack traces, or a generic "something went wrong".
@@ -79,12 +79,12 @@ A strict tool manifest tells the donkey "no, that's not on the wagon" the moment
 ### What we learned
 Structured wins for production: stable error codes (`-32602` invalid params, custom `1001` db unavailable) let agents retry, switch tools, or surface a clean message. Verbose is fine for local dev only.
 
-### 🫏 Donkey takeaway
-A structured "delivery failed because the warehouse was closed" lets the donkey come back tomorrow; "everything broke" leaves the donkey staring at the door.
+### 🚚 Courier takeaway
+A structured "delivery failed because the depot was closed" lets the courier reroute tomorrow; "everything broke" leaves them staring at the door.
 
 ---
 
-## Lab 3: Transport Sweep (stdio vs SSE vs HTTP) — "Which road into the stable?"
+## Lab 3: Transport Sweep (stdio vs SSE vs HTTP) — "Which road into the dispatch centre?"
 
 **Config:** `MCP_TRANSPORT` (default: `sse`; values: `stdio` / `sse` / `http`)
 **What it controls:** Wire transport between client and MCP server.
@@ -105,8 +105,8 @@ A structured "delivery failed because the warehouse was closed" lets the donkey 
 ### What we learned
 stdio is best when the client owns the server lifecycle (Claude Desktop, IDEs); SSE is best for browsers and remote agents needing streaming; plain HTTP is fine for stateless integrations. Pick per deployment, not per project.
 
-### 🫏 Donkey takeaway
-stdio = the donkey lives in the client's barn; SSE = a phone line that keeps ringing as new parcels arrive; HTTP = one knock per delivery.
+### 🚚 Courier takeaway
+stdio = the courier is based in the client's own depot; SSE = a live tracking channel for each new parcel; HTTP = one knock per delivery.
 
 ---
 
@@ -131,8 +131,8 @@ stdio = the donkey lives in the client's barn; SSE = a phone line that keeps rin
 ### What we learned
 For DB tools, paranoid is the only acceptable level in prod — never accept raw SQL from an LLM; always parameterise and allowlist tables. The cost is friction for power users.
 
-### 🫏 Donkey takeaway
-A minimal door waves every parcel through; a paranoid door X-rays each one — slower, but the donkey doesn't carry a bomb into the warehouse.
+### 🚚 Courier takeaway
+A minimal checkpoint waves every parcel through; a paranoid one X-rays each one — slower, but the courier doesn't carry a dangerous package into the depot.
 
 ---
 
@@ -157,19 +157,19 @@ A minimal door waves every parcel through; a paranoid door X-rays each one — s
 ### What we learned
 Read-only, parameter-free, cacheable = resource. Anything with side effects, parameters, or per-call computation = tool. Mis-modeling here is the #1 reason MCP integrations feel awkward.
 
-### 🫏 Donkey takeaway
-A resource is a parcel sitting on a labelled shelf — anyone can grab it; a tool is a delivery the donkey runs each time, sometimes carrying changes back.
+### 🚚 Courier takeaway
+A resource is a parcel sitting on a labelled shelf — anyone can grab it; a tool is a delivery the courier runs each time, sometimes carrying changes back.
 
 ---
 
-## Lab 6: Prompt Template Variants — "Which delivery note does the stable hand the agent?"
+## Lab 6: Prompt Template Variants — "Which shipping manifest does the dispatch centre hand the agent?"
 
 **Config:** MCP `prompts/*` templates (default: `assistant_default`; alternates: `assistant_strict`, `assistant_concise`, `assistant_donkey`)
 **What it controls:** The reusable prompt templates the server exposes via `prompts/list` and `prompts/get`. Clients render them into the LLM context.
 **Hypothesis:** Strict / concise templates produce shorter, more faithful tool-use; verbose templates burn tokens with no quality gain.
 
 ### Setup
-1. Add at least 3 prompt templates to `src/prompts.ts` (default, strict, donkey)
+1. Add at least 3 prompt templates to `src/prompts.ts` (default, strict, courier)
 2. From the client, fetch each via `prompts/get` and run C1 + C3
 3. Compare answers for length, faithfulness, and tool-call accuracy
 
@@ -179,10 +179,10 @@ A resource is a parcel sitting on a labelled shelf — anyone can grab it; a too
 | assistant_default | ___ | ___ | ___ | ___ | ___ |
 | assistant_strict | ___ | ___ | ___ | ___ | ___ |
 | assistant_concise | ___ | ___ | ___ | ___ | ___ |
-| assistant_donkey 🫏 | ___ | ___ | ___ | ___ | ___ |
+| assistant_courier 🚚 | ___ | ___ | ___ | ___ | ___ |
 
 ### What we learned
 MCP `prompts/*` is an underused superpower — server-side templates let you ship best-practice instructions to every connected agent without each client reinventing them.
 
-### 🫏 Donkey takeaway
-The stable manager hands the donkey a delivery note before each trip; the right template makes every trip cleaner without retraining the donkey.
+### 🚚 Courier takeaway
+The dispatch manager hands the courier a shipping manifest before each run; the right template makes every delivery cleaner without retraining the courier.

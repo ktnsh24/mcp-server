@@ -15,14 +15,14 @@
 
 ---
 
-## 🫏 The Donkey Analogy — Understanding Phase 2 MCP Operations
+## 🚚 The Courier Analogy — Understanding Phase 2 MCP Operations
 
-| Metric | 🫏 Donkey Analogy | What It Means for MCP | How It's Calculated |
+| Metric | 🚚 Courier Analogy | What It Means for MCP | How It's Calculated |
 |--------|-------------------|------------------------|---------------------|
-| **Stdio Transport** | Direct stable door — walk right in | Claude Desktop connects to tools via process stdin/stdout | Spawn server process → send JSON-RPC on stdin → read response from stdout |
-| **SSE Streaming** | Live progress bell from the station | Real-time event stream for long-running tool executions | `GET /sse` → verify `text/event-stream` content type → count events |
-| **Provider Switching** | Changes storage barns without changing tool contracts | Swap backend (InMemory ↔ PostgreSQL) without altering tool API | Change `STORAGE_PROVIDER` env → re-run same tool calls → verify identical results |
-| **Docker Deployment** | Packages the whole station for reproducible deployment | Containerised MCP server with all dependencies included | `docker compose up` → build image → verify `/health` + tool availability |
+| **Stdio Transport** | Direct depot door — walk right in | Claude Desktop connects to tools via process stdin/stdout | Spawn server process → send JSON-RPC on stdin → read response from stdout |
+| **SSE Streaming** | Live progress updates from the dispatch centre | Real-time event stream for long-running tool executions | `GET /sse` → verify `text/event-stream` content type → count events |
+| **Provider Switching** | Swaps storage facilities without changing tool contracts | Swap backend (InMemory ↔ PostgreSQL) without altering tool API | Change `STORAGE_PROVIDER` env → re-run same tool calls → verify identical results |
+| **Docker Deployment** | Packages the whole dispatch centre for reproducible deployment | Containerised MCP server with all dependencies included | `docker compose up` → build image → verify `/health` + tool availability |
 
 ---
 

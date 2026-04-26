@@ -31,16 +31,16 @@ All labs run **locally for free**. Cloud costs if you deploy:
 
 ---
 
-## 🫏 The Donkey Analogy — Understanding Phase 1 MCP Fundamentals
+## 🚚 The Courier Analogy — Understanding Phase 1 MCP Fundamentals
 
-| Metric | 🫏 Donkey Analogy | What It Means for MCP | How It's Calculated |
+| Metric | 🚚 Courier Analogy | What It Means for MCP | How It's Calculated |
 |--------|-------------------|------------------------|---------------------|
-| **Tools Discovery** | Work stalls the donkey can visit | Available tool enumeration so AI clients know what actions exist | `GET /tools` → list tool schemas → verify count and names match expected |
-| **Tool Execution** | Donkey visits a stall and completes the task | Invoking a tool with valid input and getting correct output | `POST /tools/{name}` with JSON body → check response status + result shape |
-| **Resources** | Maps and catalogs the donkey reads before acting | Metadata and data sources the server exposes for context | `GET /resources` → list URIs → fetch content → verify non-empty response |
-| **Input Validation** | Gatekeeper that blocks unsafe cargo | Schema enforcement rejects malformed or dangerous tool inputs | Send invalid JSON → verify 400/422 error with descriptive message |
-| **Error Handling** | Donkey refuses a broken package instead of crashing | Graceful failure on bad inputs or missing tools | Send unknown tool name → verify structured error (not 500 crash) |
-| **Health** | Station is reachable and open for business | Server process is up and accepting connections | `GET /health` → check status 200 + uptime/version metadata |
+| **Tools Discovery** | Pickup lockers the courier can visit | Available tool enumeration so AI clients know what actions exist | `GET /tools` → list tool schemas → verify count and names match expected |
+| **Tool Execution** | Courier visits a locker and completes the pickup | Invoking a tool with valid input and getting correct output | `POST /tools/{name}` with JSON body → check response status + result shape |
+| **Resources** | Maps and catalogs the courier checks before departing | Metadata and data sources the server exposes for context | `GET /resources` → list URIs → fetch content → verify non-empty response |
+| **Input Validation** | Gatekeeper that blocks unsafe parcels | Schema enforcement rejects malformed or dangerous tool inputs | Send invalid JSON → verify 400/422 error with descriptive message |
+| **Error Handling** | Courier returns a damaged parcel rather than crashing | Graceful failure on bad inputs or missing tools | Send unknown tool name → verify structured error (not 500 crash) |
+| **Health** | Dispatch centre is reachable and open for business | Server process is up and accepting connections | `GET /health` → check status 200 + uptime/version metadata |
 
 ---
 
