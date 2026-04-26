@@ -33,7 +33,7 @@ async function main(): Promise<void> {
       const { server, transport } = await createMcpServer(
         config,
         database,
-        logger
+        logger,
       );
       await startMcpServer(server, transport, logger);
     } else {
@@ -44,7 +44,7 @@ async function main(): Promise<void> {
         config,
         toolRegistry,
         resourceProvider,
-        logger
+        logger,
       );
 
       // Graceful shutdown

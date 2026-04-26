@@ -64,7 +64,7 @@ export class PostgresProvider implements DatabaseProvider {
 
   async query(
     sql: string,
-    params?: unknown[]
+    params?: unknown[],
   ): Promise<Record<string, unknown>[]> {
     if (!this.pool) {
       throw new Error("Database not connected");
@@ -97,7 +97,7 @@ export class PostgresProvider implements DatabaseProvider {
         WHERE table_schema = 'public' AND table_name = $1
         ORDER BY ordinal_position
       `,
-        [tableName]
+        [tableName],
       );
 
       const columns: ColumnInfo[] = columnsResult.rows.map((col) => ({
@@ -108,7 +108,7 @@ export class PostgresProvider implements DatabaseProvider {
       }));
 
       const countResult = await this.pool.query(
-        `SELECT COUNT(*) as count FROM "${tableName}"`
+        `SELECT COUNT(*) as count FROM "${tableName}"`,
       );
       const rowCount = parseInt(countResult.rows[0].count as string, 10);
 
@@ -141,7 +141,7 @@ export class InMemoryDatabaseProvider implements DatabaseProvider {
 
   async query(
     sql: string,
-    _params?: unknown[]
+    _params?: unknown[],
   ): Promise<Record<string, unknown>[]> {
     if (!this.connected) {
       throw new Error("Database not connected");
@@ -171,9 +171,9 @@ export class InMemoryDatabaseProvider implements DatabaseProvider {
     const limit = limitMatch ? parseInt(limitMatch[1], 10) : data.length;
 
     // Handle ORDER BY ... DESC
-    let result = [...data];
+    const result = [...data];
     const orderMatch = normalized.match(
-      /order\s+by\s+["']?(\w+)["']?\s*(asc|desc)?/
+      /order\s+by\s+["']?(\w+)["']?\s*(asc|desc)?/,
     );
     if (orderMatch) {
       const col = orderMatch[1];
@@ -200,16 +200,76 @@ export class InMemoryDatabaseProvider implements DatabaseProvider {
   private seedSampleData(): void {
     // Products table
     this.tables.set("products", [
-      { id: 1, name: "Wireless Earbuds", category: "Electronics", price: 29.99, stock: 150 },
-      { id: 2, name: "USB-C Hub", category: "Electronics", price: 45.99, stock: 80 },
-      { id: 3, name: "Mechanical Keyboard", category: "Electronics", price: 89.99, stock: 45 },
-      { id: 4, name: "Standing Desk Mat", category: "Office", price: 34.99, stock: 200 },
-      { id: 5, name: "Monitor Light Bar", category: "Office", price: 54.99, stock: 60 },
-      { id: 6, name: "Webcam HD", category: "Electronics", price: 69.99, stock: 35 },
-      { id: 7, name: "Desk Organizer", category: "Office", price: 19.99, stock: 300 },
-      { id: 8, name: "Laptop Stand", category: "Office", price: 39.99, stock: 120 },
-      { id: 9, name: "Noise Cancelling Headphones", category: "Electronics", price: 199.99, stock: 25 },
-      { id: 10, name: "Wireless Mouse", category: "Electronics", price: 24.99, stock: 180 },
+      {
+        id: 1,
+        name: "Wireless Earbuds",
+        category: "Electronics",
+        price: 29.99,
+        stock: 150,
+      },
+      {
+        id: 2,
+        name: "USB-C Hub",
+        category: "Electronics",
+        price: 45.99,
+        stock: 80,
+      },
+      {
+        id: 3,
+        name: "Mechanical Keyboard",
+        category: "Electronics",
+        price: 89.99,
+        stock: 45,
+      },
+      {
+        id: 4,
+        name: "Standing Desk Mat",
+        category: "Office",
+        price: 34.99,
+        stock: 200,
+      },
+      {
+        id: 5,
+        name: "Monitor Light Bar",
+        category: "Office",
+        price: 54.99,
+        stock: 60,
+      },
+      {
+        id: 6,
+        name: "Webcam HD",
+        category: "Electronics",
+        price: 69.99,
+        stock: 35,
+      },
+      {
+        id: 7,
+        name: "Desk Organizer",
+        category: "Office",
+        price: 19.99,
+        stock: 300,
+      },
+      {
+        id: 8,
+        name: "Laptop Stand",
+        category: "Office",
+        price: 39.99,
+        stock: 120,
+      },
+      {
+        id: 9,
+        name: "Noise Cancelling Headphones",
+        category: "Electronics",
+        price: 199.99,
+        stock: 25,
+      },
+      {
+        id: 10,
+        name: "Wireless Mouse",
+        category: "Electronics",
+        price: 24.99,
+        stock: 180,
+      },
     ]);
     this.schemas.set("products", [
       { name: "id", type: "integer", nullable: false, defaultValue: null },
@@ -221,19 +281,85 @@ export class InMemoryDatabaseProvider implements DatabaseProvider {
 
     // Orders table
     this.tables.set("orders", [
-      { id: 1, product_id: 1, quantity: 2, total: 59.98, status: "shipped", created_at: "2024-01-15" },
-      { id: 2, product_id: 3, quantity: 1, total: 89.99, status: "delivered", created_at: "2024-01-16" },
-      { id: 3, product_id: 5, quantity: 3, total: 164.97, status: "pending", created_at: "2024-01-17" },
-      { id: 4, product_id: 2, quantity: 1, total: 45.99, status: "shipped", created_at: "2024-01-18" },
-      { id: 5, product_id: 9, quantity: 1, total: 199.99, status: "delivered", created_at: "2024-01-19" },
-      { id: 6, product_id: 7, quantity: 5, total: 99.95, status: "pending", created_at: "2024-01-20" },
-      { id: 7, product_id: 4, quantity: 2, total: 69.98, status: "shipped", created_at: "2024-01-21" },
-      { id: 8, product_id: 10, quantity: 4, total: 99.96, status: "delivered", created_at: "2024-01-22" },
+      {
+        id: 1,
+        product_id: 1,
+        quantity: 2,
+        total: 59.98,
+        status: "shipped",
+        created_at: "2024-01-15",
+      },
+      {
+        id: 2,
+        product_id: 3,
+        quantity: 1,
+        total: 89.99,
+        status: "delivered",
+        created_at: "2024-01-16",
+      },
+      {
+        id: 3,
+        product_id: 5,
+        quantity: 3,
+        total: 164.97,
+        status: "pending",
+        created_at: "2024-01-17",
+      },
+      {
+        id: 4,
+        product_id: 2,
+        quantity: 1,
+        total: 45.99,
+        status: "shipped",
+        created_at: "2024-01-18",
+      },
+      {
+        id: 5,
+        product_id: 9,
+        quantity: 1,
+        total: 199.99,
+        status: "delivered",
+        created_at: "2024-01-19",
+      },
+      {
+        id: 6,
+        product_id: 7,
+        quantity: 5,
+        total: 99.95,
+        status: "pending",
+        created_at: "2024-01-20",
+      },
+      {
+        id: 7,
+        product_id: 4,
+        quantity: 2,
+        total: 69.98,
+        status: "shipped",
+        created_at: "2024-01-21",
+      },
+      {
+        id: 8,
+        product_id: 10,
+        quantity: 4,
+        total: 99.96,
+        status: "delivered",
+        created_at: "2024-01-22",
+      },
     ]);
     this.schemas.set("orders", [
       { name: "id", type: "integer", nullable: false, defaultValue: null },
-      { name: "product_id", type: "integer", nullable: false, defaultValue: null },
-      { name: "quantity", type: "integer", nullable: false, defaultValue: null },
+      {
+        name: "product_id",
+        type: "integer",
+        nullable: false,
+        defaultValue: null,
+      },
+      {
+        name: "quantity",
+        type: "integer",
+        nullable: false,
+        defaultValue: null,
+      },
       { name: "total", type: "numeric", nullable: false, defaultValue: null },
       { name: "status", type: "text", nullable: false, defaultValue: null },
       { name: "created_at", type: "date", nullable: false, defaultValue: null },
@@ -245,7 +371,7 @@ export class InMemoryDatabaseProvider implements DatabaseProvider {
 
 export function createDatabaseProvider(
   config: Config,
-  logger: winston.Logger
+  logger: winston.Logger,
 ): DatabaseProvider {
   if (
     config.postgres.host !== "localhost" ||
@@ -256,6 +382,8 @@ export function createDatabaseProvider(
   }
 
   // Default to in-memory for development
-  logger.info("Using in-memory database (set POSTGRES_* env vars for PostgreSQL)");
+  logger.info(
+    "Using in-memory database (set POSTGRES_* env vars for PostgreSQL)",
+  );
   return new InMemoryDatabaseProvider();
 }

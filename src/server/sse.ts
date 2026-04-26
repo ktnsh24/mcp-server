@@ -13,7 +13,7 @@ export function createSseServer(
   config: Config,
   toolRegistry: ToolRegistry,
   resourceProvider: ResourceProvider,
-  logger: winston.Logger
+  logger: winston.Logger,
 ): HttpServer {
   const app = express();
   app.use(express.json());
@@ -98,28 +98,26 @@ export function createSseServer(
 
     // Send initial connection message
     res.write(
-      `data: ${JSON.stringify({ event: "connected", tool: name })}\n\n`
+      `data: ${JSON.stringify({ event: "connected", tool: name })}\n\n`,
     );
 
     // Simulate streaming execution
     (async () => {
       try {
         res.write(
-          `data: ${JSON.stringify({ event: "executing", tool: name })}\n\n`
+          `data: ${JSON.stringify({ event: "executing", tool: name })}\n\n`,
         );
 
         const result = await toolRegistry.executeTool(name, input);
 
-        res.write(
-          `data: ${JSON.stringify({ event: "success", result })}\n\n`
-        );
+        res.write(`data: ${JSON.stringify({ event: "success", result })}\n\n`);
         res.end();
       } catch (error) {
         res.write(
           `data: ${JSON.stringify({
             event: "error",
             error: String(error),
-          })}\n\n`
+          })}\n\n`,
         );
         res.end();
       }

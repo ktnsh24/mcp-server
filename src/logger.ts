@@ -20,8 +20,8 @@ export function createLogger(config: Config): winston.Logger {
                 ? ` ${JSON.stringify(meta)}`
                 : "";
               return `${timestamp} [${level}] ${message}${metaStr}`;
-            })
-          )
+            }),
+          ),
     ),
     transports: [
       new winston.transports.Console({

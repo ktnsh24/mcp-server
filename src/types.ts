@@ -41,10 +41,7 @@ export const HttpApiInputSchema = z.object({
     .enum(["GET", "POST", "PUT", "DELETE"])
     .default("GET")
     .describe("HTTP method"),
-  headers: z
-    .record(z.string())
-    .optional()
-    .describe("Request headers"),
+  headers: z.record(z.string()).optional().describe("Request headers"),
   body: z.string().optional().describe("Request body (JSON string)"),
   timeout: z.coerce.number().default(10000).describe("Timeout in milliseconds"),
 });

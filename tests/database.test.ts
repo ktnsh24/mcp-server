@@ -30,17 +30,15 @@ describe("Database Provider", () => {
 
   it("should sort results by price DESC", async () => {
     const results = await database.query(
-      "SELECT * FROM products ORDER BY price DESC LIMIT 2"
+      "SELECT * FROM products ORDER BY price DESC LIMIT 2",
     );
     expect(results[0].price as number).toBeGreaterThanOrEqual(
-      results[1].price as number
+      results[1].price as number,
     );
   });
 
   it("should limit query results", async () => {
-    const results = await database.query(
-      "SELECT * FROM products LIMIT 5"
-    );
+    const results = await database.query("SELECT * FROM products LIMIT 5");
     expect(results.length).toBeLessThanOrEqual(5);
   });
 
@@ -56,13 +54,13 @@ describe("Database Provider", () => {
 
   it("should reject non-SELECT queries", async () => {
     await expect(
-      database.query("INSERT INTO products VALUES (1, 'test')")
+      database.query("INSERT INTO products VALUES (1, 'test')"),
     ).rejects.toThrow("Only SELECT queries are allowed");
   });
 
   it("should throw on unknown table", async () => {
-    await expect(
-      database.query("SELECT * FROM nonexistent")
-    ).rejects.toThrow("not found");
+    await expect(database.query("SELECT * FROM nonexistent")).rejects.toThrow(
+      "not found",
+    );
   });
 });

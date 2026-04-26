@@ -17,7 +17,8 @@ import {
  * Tools are actions the AI can invoke (like POST endpoints).
  */
 export class ToolRegistry {
-  private tools: Map<string, Tool> = new Map();
+  private tools: Map<string, any> = new Map();
+
   private config: Config;
   private database: DatabaseProvider;
   private logger: winston.Logger;
@@ -25,7 +26,7 @@ export class ToolRegistry {
   constructor(
     config: Config,
     database: DatabaseProvider,
-    logger: winston.Logger
+    logger: winston.Logger,
   ) {
     this.config = config;
     this.database = database;
@@ -39,7 +40,7 @@ export class ToolRegistry {
       name: "echo",
       description:
         "Echo back a message. Use this to test the MCP server connection.",
-      inputSchema: EchoInputSchema as Record<string, unknown>,
+      inputSchema: EchoInputSchema as unknown as Record<string, unknown>,
     });
 
     // Database query tool
@@ -47,7 +48,10 @@ export class ToolRegistry {
       name: "database_query",
       description:
         "Execute a read-only SQL SELECT query against the database. Always use parameterized queries to prevent SQL injection.",
-      inputSchema: DatabaseQueryInputSchema as Record<string, unknown>,
+      inputSchema: DatabaseQueryInputSchema as unknown as Record<
+        string,
+        unknown
+      >,
     });
 
     // Data analysis tool
@@ -55,7 +59,10 @@ export class ToolRegistry {
       name: "data_analysis",
       description:
         "Perform statistical analysis on database tables (summary, top_n, distribution, correlations).",
-      inputSchema: DataAnalysisInputSchema as Record<string, unknown>,
+      inputSchema: DataAnalysisInputSchema as unknown as Record<
+        string,
+        unknown
+      >,
     });
 
     // HTTP API tool
@@ -63,7 +70,7 @@ export class ToolRegistry {
       name: "http_api",
       description:
         "Make HTTP requests to external APIs. Useful for calling portfolio services or external APIs.",
-      inputSchema: HttpApiInputSchema as Record<string, unknown>,
+      inputSchema: HttpApiInputSchema as unknown as Record<string, unknown>,
     });
 
     // Portfolio health check
@@ -71,10 +78,15 @@ export class ToolRegistry {
       name: "portfolio_health",
       description:
         "Check the health status of portfolio services (gateway, agent, chatbot).",
-      inputSchema: PortfolioHealthInputSchema as Record<string, unknown>,
+      inputSchema: PortfolioHealthInputSchema as unknown as Record<
+        string,
+        unknown
+      >,
     });
 
-    this.logger.info("Registered 5 tools", { tools: Array.from(this.tools.keys()) });
+    this.logger.info("Registered 5 tools", {
+      tools: Array.from(this.tools.keys()),
+    });
   }
 
   /**
@@ -89,7 +101,7 @@ export class ToolRegistry {
    */
   async executeTool(
     name: string,
-    input: Record<string, unknown>
+    input: Record<string, unknown>,
   ): Promise<string> {
     switch (name) {
       case "echo":
@@ -125,7 +137,7 @@ export class ToolRegistry {
   }
 
   private async executeAnalysis(
-    input: Record<string, unknown>
+    input: Record<string, unknown>,
   ): Promise<string> {
     const parsed = DataAnalysisInputSchema.parse(input);
     const schemas = await this.database.getSchema();
@@ -144,7 +156,7 @@ export class ToolRegistry {
             columns: schema.columns.map((c) => c.name),
           },
           null,
-          2
+          2,
         );
 
       case "top_n": {
@@ -175,15 +187,12 @@ export class ToolRegistry {
   }
 
   private async executeHttpApi(
-    input: Record<string, unknown>
+    input: Record<string, unknown>,
   ): Promise<string> {
     const parsed = HttpApiInputSchema.parse(input);
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(
-      () => controller.abort(),
-      parsed.timeout
-    );
+    const timeoutId = setTimeout(() => controller.abort(), parsed.timeout);
 
     try {
       const options: RequestInit = {
@@ -207,7 +216,7 @@ export class ToolRegistry {
           body: data,
         },
         null,
-        2
+        2,
       );
     } finally {
       clearTimeout(timeoutId);
@@ -215,7 +224,7 @@ export class ToolRegistry {
   }
 
   private async executePortfolioHealth(
-    input: Record<string, unknown>
+    input: Record<string, unknown>,
   ): Promise<string> {
     const parsed = PortfolioHealthInputSchema.parse(input);
 
@@ -251,19 +260,19 @@ export class ToolRegistry {
 /**
  * Register tools with the MCP server.
  */
-export function registerTools(
-  server: Server,
-  registry: ToolRegistry
-): void {
+export function registerTools(server: Server, registry: ToolRegistry): void {
   // Provide tool list
-  server.setRequestHandler("tools/list", async () => ({
+  (server as any).setRequestHandler("tools/list", async () => ({
     tools: registry.getAllTools(),
   }));
 
   // Execute tool
-  server.setRequestHandler("tools/call", async (request) => {
+  (server as any).setRequestHandler("tools/call", async (request: any) => {
     const { name, arguments: args } = request.params;
-    const result = await registry.executeTool(name, args as Record<string, unknown>);
+    const result = await registry.executeTool(
+      name,
+      args as Record<string, unknown>,
+    );
 
     return {
       content: [

@@ -39,8 +39,8 @@ describe("Resource Provider", () => {
   });
 
   it("should throw on unknown resource", async () => {
-    await expect(
-      provider.readResource("unknown://resource")
-    ).rejects.toThrow("Unknown resource");
+    await expect(provider.readResource("unknown://resource")).rejects.toThrow(
+      "Unknown resource",
+    );
   });
 });

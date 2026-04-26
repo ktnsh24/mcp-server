@@ -27,8 +27,7 @@ export class ResourceProvider {
       {
         uri: "database://schema",
         name: "Database Schema",
-        description:
-          "Current database schema including all tables and columns",
+        description: "Current database schema including all tables and columns",
         mimeType: "application/json",
       },
       {
@@ -124,7 +123,7 @@ export class ResourceProvider {
         ],
       },
       null,
-      2
+      2,
     );
   }
 
@@ -147,7 +146,7 @@ export class ResourceProvider {
         supportedTransports: ["stdio", "sse"],
       },
       null,
-      2
+      2,
     );
   }
 
@@ -187,7 +186,7 @@ export class ResourceProvider {
         ],
       },
       null,
-      2
+      2,
     );
   }
 }

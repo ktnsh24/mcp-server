@@ -13,7 +13,7 @@ import type { DatabaseProvider } from "../database/provider.js";
 export async function createMcpServer(
   config: Config,
   database: DatabaseProvider,
-  logger: winston.Logger
+  logger: winston.Logger,
 ): Promise<{ server: Server; transport: Transport }> {
   const transport = new StdioServerTransport();
   const server = new Server({
@@ -28,11 +28,11 @@ export async function createMcpServer(
   registerTools(server, toolRegistry);
 
   // Register resources
-  server.setRequestHandler("resources/list", async () => ({
+  (server as any).setRequestHandler("resources/list", async () => ({
     resources: resourceProvider.getAvailableResources(),
   }));
 
-  server.setRequestHandler("resources/read", async (request) => {
+  (server as any).setRequestHandler("resources/read", async (request: any) => {
     const { uri } = request.params;
     const content = await resourceProvider.readResource(uri as string);
     return {
@@ -47,7 +47,7 @@ export async function createMcpServer(
   });
 
   // Health endpoint
-  server.setRequestHandler("health", async () => ({
+  (server as any).setRequestHandler("health", async () => ({
     status: "ok",
     version: "0.1.0",
     database: database.isConnected() ? "connected" : "disconnected",
@@ -67,7 +67,7 @@ export async function createMcpServer(
 export async function startMcpServer(
   server: Server,
   transport: Transport,
-  logger: winston.Logger
+  logger: winston.Logger,
 ): Promise<void> {
   server.connect(transport);
   logger.info("MCP server started and listening on stdio");
