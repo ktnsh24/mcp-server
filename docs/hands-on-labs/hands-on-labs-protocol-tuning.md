@@ -5,6 +5,8 @@
 > **How to run:** Each lab changes ONE config in `.env` (or one bit of server code), runs the same 3 protocol calls, records the metrics, and explains the trade-off.
 >
 > **Courier lens:** Each lab ends with a courier takeaway summarising the trade-off in plain language.
+>
+> **Shared guide:** [How to Read Labs (portfolio-level)](../../../../docs/shared/hands-on-labs/how-to-read-labs.md)
 
 ## Table of Contents
 - [Setup — Common to all labs](#setup--common-to-all-labs)

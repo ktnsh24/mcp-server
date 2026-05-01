@@ -220,4 +220,4 @@ Unlike the agent's calculator (AST eval), MCP tools never execute arbitrary code
 
 ---
 
-**Related:** [Architecture](../architecture-and-design/architecture.md) · [Tool Use Deep Dive](tool-use-deep-dive.md)
+**Related:** [Architecture](../architecture-and-design/architecture.md) · [Tool Use Deep Dive](../../../ai-agent/docs/ai-engineering/tool-use-deep-dive.md)

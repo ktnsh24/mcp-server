@@ -2,6 +2,8 @@
 
 > How much does it cost to run mcp-server locally vs on cloud?
 
+**Shared baseline:** [Cost Analysis Playbook (portfolio-level)](../../../../docs/shared/ai-engineering/cost-analysis-playbook.md)
+
 ## Table of Contents
 
 - [Local Development — FREE](#local-development--free)
