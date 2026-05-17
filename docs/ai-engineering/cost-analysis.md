@@ -2,16 +2,21 @@
 
 > How much does it cost to run mcp-server locally vs on cloud?
 
-**Shared baseline:** [Cost Analysis Playbook (portfolio-level)](../../../../docs/shared/ai-engineering/cost-analysis-playbook.md)
-
 ## Table of Contents
 
-- [Local Development — FREE](#local-development--free)
-- [Cloud Cost Estimates](#cloud-cost-estimates)
-  - [AWS](#aws)
-  - [Azure](#azure)
-- [Cost of Running Tests on Cloud](#cost-of-running-tests-on-cloud)
-- [Budget Guard — Automatic Cost Protection](#budget-guard--automatic-cost-protection)
+- [Cost Analysis — MCP Server](#cost-analysis--mcp-server)
+  - [Table of Contents](#table-of-contents)
+  - [Local Development — FREE](#local-development--free)
+  - [Cloud Cost Estimates](#cloud-cost-estimates)
+    - [AWS](#aws)
+    - [Azure](#azure)
+  - [Cost of Running Tests on Cloud](#cost-of-running-tests-on-cloud)
+  - [Budget Guard — Automatic Cost Protection](#budget-guard--automatic-cost-protection)
+    - [How it works](#how-it-works)
+    - [AWS](#aws-1)
+    - [Azure](#azure-1)
+    - [Configuration](#configuration)
+    - [⚠️ Important caveat](#️-important-caveat)
 
 ---
 
